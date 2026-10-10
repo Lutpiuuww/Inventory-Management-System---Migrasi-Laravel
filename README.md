@@ -1,59 +1,144 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Sistem Manajemen Inventaris (Inventory Laravel)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Aplikasi web sistem manajemen inventaris barang berbasis **Laravel 12** dan **Tailwind CSS**. Proyek ini dibuat sebagai hasil **migrasi dan modernisasi dari proyek sebelumnya (P4)** guna meningkatkan keandalan arsitektur kode, keamanan, keteraturan basis data relasional, serta pengalaman antarmuka pengguna (UI/UX).
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 📌 Latar Belakang & Tujuan Migrasi
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Proyek ini merupakan tahap migrasi dari **Project P4** sebelumnya:
+1. **Modernisasi Framework**: Beralih ke arsitektur modern Laravel (MVC) dengan pemanfaatan Eloquent ORM, migrasi skema terstruktur, seeder, dan middleware.
+2. **Keamanan & Autentikasi**: Implementasi sistem autentikasi bawaan dengan hashing sandi (Bcrypt) dan kontrol hak akses berbasis peran (*Role-Based Access Control* - Admin & Staff).
+3. **Peningkatan Tampilan (UI/UX)**: Menggunakan Tailwind CSS dan komponen Blade yang responsif, bersih, dan informatif.
+4. **Relasi Basis Data yang Lebih Kuat**: Menghubungkan relasi antarentitas seperti produk, kategori, pemasok (*many-to-many*), serta pencatatan riwayat perpindahan stok (*stock movements*).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## 🚀 Fitur Utama
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+- **Autentikasi & Otorisasi**:
+  - Login dan Logout berbasis sesi.
+  - Pembagian hak akses: **Admin** (akses penuh) dan **Staff** (akses operasional produk & stok).
+- **Manajemen Produk (CRUD)**:
+  - Tambah, lihat, ubah, dan hapus data produk.
+  - Pengunggahan dan pengelolaan gambar produk.
+  - Relasi dengan kategori dan pemasok (*suppliers*).
+- **Manajemen Kategori & Pemasok (Admin Only)**:
+  - Pengelolaan kategori barang untuk pengelompokan yang rapi.
+  - Pengelolaan data pemasok (*supplier contact & information*).
+- **Riwayat Pergerakan Stok (*Stock Movements*)**:
+  - Pencatatan barang masuk (*in*) dan keluar (*out*).
+  - Pembaruan stok secara otomatis serta histori pencatatan transaksi barang.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-## Laravel Sponsors
+## 🛠️ Prasyarat Sistem
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Sebelum menjalankan proyek ini, pastikan sistem Anda telah terpasang:
+- **PHP** >= 8.2
+- **Composer**
+- **Node.js** & **NPM**
+- **MySQL / MariaDB** (atau SQLite)
 
-### Premium Partners
+---
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+## ⚙️ Panduan Instalasi & Menjalankan Proyek
 
-## Contributing
+Ikuti langkah-langkah berikut untuk menjalankan proyek di lingkungan lokal:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 1. Klon Repositori
+```bash
+git clone <url-repositori-anda>
+cd inventory-laravel
+```
 
-## Code of Conduct
+### 2. Pasang Dependensi PHP & Node
+```bash
+composer install
+npm install
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 3. Konfigurasi Environment (`.env`)
+Salin file `.env.example` menjadi `.env`:
+```bash
+cp .env.example .env
+```
+> *(Di Windows PowerShell, gunakan `copy .env.example .env`)*
 
-## Security Vulnerabilities
+Buka file `.env` dan sesuaikan koneksi database Anda, misalnya:
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=inventory_laravel
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### 4. Buat Application Key
+```bash
+php artisan key:generate
+```
 
-## License
+### 5. Jalankan Migrasi & Seeder Database
+Jalankan migrasi untuk membuat tabel beserta data dummy awal:
+```bash
+php artisan migrate --seed
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### 6. Tautkan Storage (Storage Link)
+Buat symlink agar gambar produk yang diunggah dapat diakses publik:
+```bash
+php artisan storage:link
+```
+
+### 7. Jalankan Server Pengembangan
+Jalankan server Laravel dan compiler aset frontend:
+```bash
+# Terminal 1: Menjalankan Laravel
+php artisan serve
+
+# Terminal 2: Menjalankan Vite (Tailwind CSS)
+npm run dev
+```
+
+Akses aplikasi di browser melalui: `http://127.0.0.1:8000`
+
+---
+
+## 🔐 Akun Default (Seeder)
+
+Setelah menjalankan `php artisan migrate --seed`, Anda dapat masuk menggunakan akun default berikut:
+
+| Peran (*Role*) | Username | Password | Hak Akses |
+|---|---|---|---|
+| **Admin** | `admin` | `password` | Akses penuh (Produk, Kategori, Supplier, Stock Movement) |
+| **Staff** | `staff` | `password` | Akses operasional (Produk & Stock Movement) |
+
+---
+
+## 📂 Struktur Proyek
+
+```plaintext
+inventory-laravel/
+├── app/
+│   ├── Http/
+│   │   ├── Controllers/     # Controller (Auth, Product, Category, Supplier, StockMovement)
+│   │   └── Middleware/      # AdminMiddleware untuk proteksi hak akses
+│   └── Models/              # Model Eloquent (User, Product, Category, Supplier, StockMovement)
+├── database/
+│   ├── migrations/          # File migrasi struktur tabel basis data
+│   └── seeders/             # DatabaseSeeder & data awal
+├── public/                  # Entry point publik & aset statis
+├── resources/
+│   └── views/               # Tampilan UI Blade (Dashboard, Form, Tabel)
+├── routes/
+│   └── web.php              # Definisi endpoint & rute aplikasi
+└── screenshot/              # Dokumentasi visual aplikasi
+```
+
+---
+
+## 📄 Lisensi
+
+Proyek ini dikembangkan untuk kebutuhan akademik/pembelajaran dan bersifat *open-source* di bawah lisensi [MIT](LICENSE).
